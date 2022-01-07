@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Book } from 'app/models/book';
-
 import { DataService } from 'app/core/data.service';
-import { LoggerService } from 'app/core/logger.service';
 
 @Component({
   selector: 'app-edit-book',
@@ -15,9 +13,8 @@ export class EditBookComponent implements OnInit {
 
   selectedBook: Book;
 
-  constructor(private route: ActivatedRoute   ,           
-    private dataService: DataService,
-    private loggerService: LoggerService) { }
+  constructor(private route: ActivatedRoute,
+              private dataService: DataService) { }
 
   ngOnInit() {
     let bookID: number = parseInt(this.route.snapshot.params['id']);
@@ -26,7 +23,6 @@ export class EditBookComponent implements OnInit {
 
   setMostPopular(): void {
     this.dataService.setMostPopularBook(this.selectedBook);
-    this.loggerService.log(`New most popular book: ${this.selectedBook.title}`);
   }
 
   saveChanges(): void {
