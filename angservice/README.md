@@ -31,3 +31,37 @@ provide is the token, useClass is the token
     providers: [Dataservice,
         {provide: LoggingService, useClass: LoggerService}
     ] 
+
+## Build-in 
+
+Angular API
+
+-   Retrieve version
+-   Title Service
+-   Centralized Error handler service
+
+    import { Component, OnInit, Version, VERSION } from '@angular/core';
+    import { Title } from '@angular/platform-browser';
+
+need provide Title Service
+
+    constructor (private title: Title)
+
+    this.title.setTitle(`Book Tracker ${VERSION.full}`);
+
+## Centralize error handling
+
+    import { Injectable, ErrorHandler } from '@angular/core';
+
+    handleError(error: any): void{
+        let customError: BookTrackerError = new BookTrackerError();
+        customError.errorNumber = 200;
+        customError.message = (<Error>error).message;
+        customError.friendlyMessage = 'An error occurred. Please try again.';
+
+        console.log(customError);    
+    }
+
+     providers: [{ provide: ErrorHandler, useClass: BookTrackerErrorHandlerService }]
+
+    
